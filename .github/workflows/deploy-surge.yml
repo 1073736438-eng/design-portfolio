@@ -31,4 +31,5 @@ jobs:
       - name: Deploy
         run: npx surge . https://sssy-portfolio.surge.sh
         env:
+          SURGE_LOGIN: 1073736438@qq.com
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
