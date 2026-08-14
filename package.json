@@ -1,0 +1,10 @@
+{
+  "name": "sssy-portfolio",
+  "private": true,
+  "devDependencies": {
+    "surge": "0.43.0"
+  },
+  "overrides": {
+    "chartscii": "4.0.2"
+  }
+}
