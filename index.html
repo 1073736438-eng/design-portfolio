@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f2f4f7" />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+    <meta
+      name="description"
+      content="SSSY Portfolio — AI product design, visual systems, and creative technology."
+    />
+    <title>SSSY Portfolio</title>
+    <link rel="stylesheet" href="./styles.css?v=41" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#home" aria-label="SSSY Portfolio 首页">
+        <span>SSSY Portfolio</span>
+      </a>
+
+      <nav class="main-nav" aria-label="主导航">
+        <a href="#work">Work Projects</a>
+        <a href="#about">About Me</a>
+        <a href="#playground">AI Playground</a>
+      </nav>
+
+      <div class="contact-menu">
+        <button
+          class="contact-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="contact-popover"
+        >
+          Contact
+        </button>
+        <div class="contact-popover" id="contact-popover" role="dialog" aria-labelledby="contact-title">
+          <div class="contact-dialog-header">
+            <div>
+              <h2 id="contact-title">联系方式</h2>
+              <p>欢迎和我联系交流</p>
+            </div>
+          </div>
+
+          <div class="contact-fields">
+            <div class="contact-field-group">
+              <div class="contact-field-heading">
+                <label for="contact-phone">电话</label>
+              </div>
+              <div class="contact-field">
+                <img src="./assets/contact-phone.svg" alt="" />
+                <input id="contact-phone" type="text" value="18052145675" readonly />
+              </div>
+            </div>
+
+            <div class="contact-field-group">
+              <div class="contact-field-heading">
+                <label for="contact-wechat">微信</label>
+              </div>
+              <div class="contact-field">
+                <img src="./assets/contact-wechat.svg" alt="" />
+                <input id="contact-wechat" type="text" value="18052145675" readonly />
+              </div>
+            </div>
+
+            <div class="contact-field-group">
+              <div class="contact-field-heading">
+                <label for="contact-email">邮箱</label>
+              </div>
+              <div class="contact-field">
+                <img src="./assets/contact-mail.svg" alt="" />
+                <input id="contact-email" type="text" value="1073736438@qq.com" readonly />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="intro reveal" data-reveal>
+          <h1 id="hero-title">Hello, I am SSSY.</h1>
+          <div class="intro-meta">
+            <span>AI Product Designer</span>
+          </div>
+        </div>
+
+        <div class="card-stage reveal" data-reveal>
+          <p class="card-label">Hover, then click to turn the card</p>
+          <button
+            class="portfolio-card"
+            type="button"
+            aria-label="翻转介绍卡片"
+            aria-pressed="false"
+          >
+            <span class="card-inner">
+              <span class="card-face card-front" aria-hidden="false">
+                <img
+                  class="card-art"
+                  src="./assets/hero-card-front.png"
+                  alt="一位戴眼镜的女孩坐在窗边，阳光照在她的脸上"
+                />
+                <span class="pop-art-layer" aria-hidden="true">
+                  <img class="pop-art-image" src="./assets/pop-art-card.png?v=2" alt="" />
+                </span>
+              </span>
+              <span class="card-face card-back" aria-hidden="true">
+                <img
+                  class="card-art"
+                  src="./assets/hero-card-front-v2.png?v=1"
+                  alt="SSSY 的个人介绍卡片"
+                />
+              </span>
+            </span>
+          </button>
+        </div>
+
+      </section>
+
+      <section class="about-section" id="about" aria-labelledby="about-title">
+        <div class="about-shell">
+          <div class="about-heading reveal" data-reveal>
+            <h2 id="about-title">About Me</h2>
+            <div class="about-introduction">
+              <p>AI 产品体验设计师，专注 AI 产品体验与智能化设计，围绕客服、用户研究与设计生产力方向，探索 AI 能力与真实业务场景的结合。</p>
+              <p>具备 0-1 产品设计、复杂体验优化、AI 工作流与 AIGC 创意生产能力，持续探索：AI × 产品体验 × 设计系统 × 智能交互。</p>
+              <p>希望把设计经验沉淀为可被 AI 理解、调用和规模化复用的生产能力。</p>
+            </div>
+            <div class="about-actions">
+              <button class="about-detail-link" type="button" data-experience-open>查看详细经历</button>
+            </div>
+          </div>
+
+          <div class="about-gallery reveal" data-reveal aria-label="关于我画廊">
+            <div class="about-gallery-track" data-about-gallery-track>
+              <button class="about-gallery-card about-gallery-card-inset" type="button" aria-label="查看照片 1" data-gallery-title="生活片段 01"><img src="./assets/about-gallery/01.png" alt="餐厅生活照" /></button>
+              <button class="about-gallery-card about-gallery-card-inset" type="button" aria-label="查看照片 2" data-gallery-title="生活片段 02"><img src="./assets/about-gallery/02.png" alt="灰色外套生活照" /></button>
+              <button class="about-gallery-card about-gallery-card-inset" type="button" aria-label="查看照片 3" data-gallery-title="生活片段 03"><img src="./assets/about-gallery/03.png" alt="紫色发型生活照" /></button>
+              <button class="about-gallery-card about-gallery-card-inset" type="button" aria-label="查看照片 4" data-gallery-title="生活片段 04"><img src="./assets/about-gallery/04.png" alt="湖边生活照" /></button>
+              <button class="about-gallery-card" type="button" aria-label="查看照片 5" data-gallery-title="生活片段 05"><img src="./assets/about-gallery/05.png" alt="餐厅侧面生活照" /></button>
+              <button class="about-gallery-card" type="button" aria-label="查看照片 6" data-gallery-title="生活片段 06"><img src="./assets/about-gallery/06.png" alt="条纹穿搭生活照" /></button>
+              <button class="about-gallery-card" type="button" aria-label="查看照片 7" data-gallery-title="生活片段 07"><img src="./assets/about-gallery/07.png" alt="玩偶商店生活照" /></button>
+              <button class="about-gallery-card" type="button" aria-label="查看照片 8" data-gallery-title="生活片段 08"><img src="./assets/about-gallery/08.png" alt="办公区生活照" /></button>
+              <button class="about-gallery-card" type="button" aria-label="查看照片 9" data-gallery-title="生活片段 09"><img src="./assets/about-gallery/09.png" alt="户外长椅生活照" /></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="work-projects" id="work" aria-labelledby="work-title">
+        <div class="work-projects-shell">
+          <div class="work-projects-heading reveal" data-reveal>
+            <h2 id="work-title">Work Projects</h2>
+          </div>
+
+          <div class="work-projects-content">
+            <div class="work-projects-sidebar reveal" data-reveal>
+              <div class="work-tabs" role="tablist" aria-label="项目分类">
+                <button class="work-tab is-active" type="button" role="tab" aria-selected="true" data-category="bytedance">字节跳动</button>
+                <button class="work-tab" type="button" role="tab" aria-selected="false" data-category="internship">实习</button>
+                <button class="work-tab" type="button" role="tab" aria-selected="false" data-category="other">其他</button>
+              </div>
+
+              <div class="work-project-list" role="tablist" aria-label="项目列表">
+                <div class="work-project is-active" role="tab" tabindex="0" aria-selected="true" data-project="customer-service">
+                  <span class="work-project-main">
+                    <span class="work-project-title">AI X C端客服</span>
+                    <span class="work-project-description">AI驱动客服场景体验升级</span>
+                    <a class="work-project-link" href="./detail.html">查看详情 <span aria-hidden="true">↗</span></a>
+                  </span>
+                  <span class="work-project-divider" aria-hidden="true"><span class="work-project-progress"></span></span>
+                </div>
+                <div class="work-project" role="tab" tabindex="0" aria-selected="false" data-project="professional">
+                  <span class="work-project-main">
+                    <span class="work-project-title">AI X 专业</span>
+                    <span class="work-project-description">AI驱动设计生产力升级，探索智能化产品与创意设计新范式</span>
+                    <a class="work-project-link" href="./detail.html?project=professional">查看详情 <span aria-hidden="true">↗</span></a>
+                  </span>
+                  <span class="work-project-divider" aria-hidden="true"><span class="work-project-progress"></span></span>
+                </div>
+                <div class="work-project" role="tab" tabindex="0" aria-selected="false" data-project="research">
+                  <span class="work-project-main">
+                    <span class="work-project-title">AI X 用户研究</span>
+                    <span class="work-project-description">AI调研能力建设与平台升级，推动智能访谈及问卷全链路提效</span>
+                    <a class="work-project-link" href="./detail.html?project=research">查看详情 <span aria-hidden="true">↗</span></a>
+                  </span>
+                  <span class="work-project-divider" aria-hidden="true"><span class="work-project-progress"></span></span>
+                </div>
+                <div class="work-project" role="tab" tabindex="0" aria-selected="false" hidden>
+                  <span class="work-project-main">
+                    <span class="work-project-title"></span>
+                    <span class="work-project-description"></span>
+                    <a class="work-project-link">查看详情 <span aria-hidden="true">↗</span></a>
+                  </span>
+                  <span class="work-project-divider" aria-hidden="true"><span class="work-project-progress"></span></span>
+                </div>
+                <div class="work-project" role="tab" tabindex="0" aria-selected="false" hidden>
+                  <span class="work-project-main">
+                    <span class="work-project-title"></span>
+                    <span class="work-project-description"></span>
+                    <a class="work-project-link">查看详情 <span aria-hidden="true">↗</span></a>
+                  </span>
+                  <span class="work-project-divider" aria-hidden="true"><span class="work-project-progress"></span></span>
+                </div>
+                <div class="work-project" role="tab" tabindex="0" aria-selected="false" hidden>
+                  <span class="work-project-main">
+                    <span class="work-project-title"></span>
+                    <span class="work-project-description"></span>
+                    <a class="work-project-link">查看详情 <span aria-hidden="true">↗</span></a>
+                  </span>
+                  <span class="work-project-divider" aria-hidden="true"><span class="work-project-progress"></span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="work-project-visual-wrap reveal" data-reveal>
+              <a class="work-project-visual-link" data-project-visual-link href="./detail.html" aria-label="查看 AI X C端客服项目详情">
+                <div class="work-project-visual" data-project-visual aria-label="AI X C端客服项目展示"></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="playground-section" id="playground" aria-labelledby="playground-title">
+        <div class="playground-shell">
+          <div class="playground-heading reveal" data-reveal>
+            <h2 id="playground-title">AI Playground</h2>
+          </div>
+
+          <div class="playground-content">
+            <div class="playground-sidebar reveal" data-reveal>
+              <div class="playground-list" role="tablist" aria-label="AI Playground 分类">
+                <div class="playground-item is-active" role="tab" tabindex="0" aria-selected="true" data-playground="product">
+                  <span class="playground-item-main">
+                    <span class="playground-item-title">产品设计</span>
+                    <span class="playground-item-description">设计规范转化为 AI 可调用的生产力</span>
+                    <a class="playground-item-link" href="./detail.html?project=professional&amp;section=pro-product">查看详情 <span aria-hidden="true">↗</span></a>
+                  </span>
+                  <span class="playground-item-divider" aria-hidden="true"><span class="playground-item-progress"></span></span>
+                </div>
+                <div class="playground-item" role="tab" tabindex="0" aria-selected="false" data-playground="creative">
+                  <span class="playground-item-main">
+                    <span class="playground-item-title">创意设计</span>
+                    <span class="playground-item-description">探索模型的上限</span>
+                    <a class="playground-item-link" href="./detail.html?project=professional&amp;section=pro-creative">查看详情 <span aria-hidden="true">↗</span></a>
+                  </span>
+                  <span class="playground-item-divider" aria-hidden="true"><span class="playground-item-progress"></span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="playground-visual-wrap reveal" data-reveal>
+              <a class="playground-visual-link" data-playground-visual-link href="./detail.html?project=professional&amp;section=pro-product" aria-label="查看产品设计详情">
+                <div class="playground-visual has-supplied-image" data-playground-visual aria-label="产品设计实验">
+                  <article class="playground-panel playground-image-panel playground-product-panel is-active" data-playground-panel="product" aria-hidden="false">
+                    <img src="./assets/home-playground-product.png" alt="产品设计视觉卡片" />
+                  </article>
+                  <article class="playground-panel playground-image-panel playground-creative-panel" data-playground-panel="creative" aria-hidden="true">
+                    <img src="./assets/home-playground-creative.png" alt="创意设计视觉卡片" />
+                  </article>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="experience-modal" data-experience-modal role="dialog" aria-modal="true" aria-label="详细经历" hidden>
+      <div class="experience-modal-panel">
+        <button class="experience-modal-close" type="button" data-experience-close aria-label="关闭详细经历">×</button>
+        <img src="./assets/about/experience-2026.jpg" alt="刘苏瑶 2026 工作、实习与获奖经历" />
+      </div>
+    </div>
+
+    <div class="footer-pull-shell">
+      <footer class="site-footer" id="footer" aria-labelledby="footer-title">
+        <div class="site-footer-content">
+        <div class="footer-brand-block">
+          <h2 id="footer-title">SSSY Portfolio</h2>
+        </div>
+
+        <nav class="footer-navigation" aria-label="页脚导航">
+          <div class="footer-nav-group">
+            <a class="footer-nav-title" href="#work">Work Projects</a>
+            <a href="#work">AI X C端客服</a>
+            <a href="#work">AI X 专业</a>
+            <a href="#work">AI X 用户研究</a>
+            <a href="#work">增长玩法</a>
+            <a href="#work">品牌设计</a>
+            <a href="#work">亚运会电竞会场</a>
+            <a href="#work">春节泛化线会场</a>
+            <a href="#work">视觉设计</a>
+            <a href="#work">快抢APP虚拟项目</a>
+          </div>
+          <div class="footer-nav-group">
+            <a class="footer-nav-title" href="#about">About Me</a>
+            <a href="#about">个人简介</a>
+            <a href="#about">工作经历</a>
+          </div>
+          <div class="footer-nav-group">
+            <a class="footer-nav-title" href="#playground">AI Playground</a>
+            <a href="#playground">产品设计</a>
+            <a href="#playground">创意设计</a>
+          </div>
+        </nav>
+
+        <div class="footer-aside">
+          <p class="footer-opportunity">正在期待 AI 产品设计与创意技术领域的新机会...</p>
+          <a class="footer-contact" href="#home">
+            <img src="./assets/footer-qr.png" alt="微信二维码" />
+            <span>Contact me</span>
+          </a>
+        </div>
+        </div>
+      </footer>
+      <div class="footer-copyright">Copyright@ 2026 SSSY</div>
+    </div>
+
+    <div class="copy-toast" role="status" aria-live="polite">复制成功</div>
+
+    <script src="./app.js?v=46"></script>
+  </body>
+</html>

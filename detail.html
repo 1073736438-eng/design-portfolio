@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="description"
+      content="Text 2 UI 项目详情 — 将客服长文本转译为结构化界面。"
+    />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+    <title>SSSY Portfolio</title>
+  <link rel="stylesheet" href="./detail.css?v=39" />
+  </head>
+  <body>
+    <header class="detail-header">
+      <a class="brand" href="./index.html#home" aria-label="SSSY Portfolio 首页">
+        <span>SSSY Portfolio</span>
+      </a>
+
+      <div class="contact-menu">
+        <button
+          class="contact-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="contact-popover"
+        >
+          Contact
+        </button>
+        <div class="contact-popover" id="contact-popover" role="dialog" aria-labelledby="contact-title">
+          <div class="contact-dialog-header">
+            <div>
+              <h2 id="contact-title">联系方式</h2>
+              <p>欢迎和我联系交流</p>
+            </div>
+          </div>
+
+          <div class="contact-fields">
+            <div class="contact-field-group">
+              <div class="contact-field-heading">
+                <label for="contact-phone">电话</label>
+              </div>
+              <div class="contact-field">
+                <img src="./assets/contact-phone.svg" alt="" />
+                <input id="contact-phone" type="text" value="18052145675" readonly />
+              </div>
+            </div>
+            <div class="contact-field-group">
+              <div class="contact-field-heading">
+                <label for="contact-wechat">微信</label>
+              </div>
+              <div class="contact-field">
+                <img src="./assets/contact-wechat.svg" alt="" />
+                <input id="contact-wechat" type="text" value="18052145675" readonly />
+              </div>
+            </div>
+            <div class="contact-field-group">
+              <div class="contact-field-heading">
+                <label for="contact-email">邮箱</label>
+              </div>
+              <div class="contact-field">
+                <img src="./assets/contact-mail.svg" alt="" />
+                <input id="contact-email" type="text" value="1073736438@qq.com" readonly />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="case-page">
+      <div class="case-layout">
+        <aside class="case-sidebar" aria-label="项目导航">
+          <div class="sidebar-topline">
+            <a class="back-link" href="./index.html#work" aria-label="返回项目列表">
+              <img src="./assets/chevron-left.svg" alt="" />
+            </a>
+            <div class="company-tabs" role="tablist" aria-label="项目公司分类">
+              <button class="is-active" type="button" role="tab" aria-selected="true" data-detail-company="bytedance">字节跳动</button>
+              <button type="button" role="tab" aria-selected="false" data-detail-company="internship">实习</button>
+              <button type="button" role="tab" aria-selected="false" data-detail-company="other">其他</button>
+            </div>
+          </div>
+
+          <h1 class="detail-sidebar-heading" data-detail-category-title>AI X C端客服</h1>
+
+          <nav class="project-outline" aria-label="相关项目" data-detail-outline>
+            <div class="outline-item is-active">
+              <strong>Text 2 UI项目</strong>
+              <span>AI驱动客服场景体验升级</span>
+            </div>
+          </nav>
+        </aside>
+
+        <div class="detail-content-stack" data-detail-stack>
+        <article class="case-content customer-service-content" data-detail-main>
+          <header class="case-title customer-service-hero reveal" data-reveal>
+            <p class="case-eyebrow">AI × CUSTOMER SERVICE EXPERIENCE · 2026</p>
+            <h1>AI × C端客服体验</h1>
+            <p class="customer-service-deck">探索下一代智能客服体验范式：从回答问题，到辅助决策，再到主动完成任务。</p>
+            <div class="customer-summary-callout">
+              <span class="summary-icon" aria-hidden="true">🌟</span>
+              <div>
+                <h2>一句话描述</h2>
+                <p>探索下一代智能客服体验范式：从回答问题，到辅助决策，再到主动完成任务。</p>
+              </div>
+            </div>
+          </header>
+
+          <figure class="case-media customer-case-figure customer-case-hero-visual reveal" data-reveal aria-label="客服体验体系总览">
+            <img class="customer-case-image" src="./assets/customer-service/1.jpg" alt="AI 客服体验体系总览" loading="eager" />
+          </figure>
+
+          <section class="customer-chapter customer-case-section reveal" id="cs-context" data-reveal>
+            <p class="chapter-index">00 / CONTEXT</p>
+            <h2>一、目前挑战</h2>
+            <ul class="customer-case-bullets">
+              <li><strong>信息表达效率不足：</strong>规则、权益和操作步骤仍以长文本为主，用户需要自己阅读、提取重点并完成操作。</li>
+              <li><strong>交互缺少场景化引导：</strong>用户知道答案，却不知道下一步怎么做；语音、IM 与页面操作之间的信息割裂进一步增加认知负担。</li>
+              <li><strong>服务缺少信任连接：</strong>AI 虽然可以快速回答，但仍需建立清晰的官方身份、专业能力和有温度的服务感知。</li>
+            </ul>
+          </section>
+
+          <section class="customer-chapter customer-case-section reveal" id="cs-ui" data-reveal>
+            <p class="chapter-index">01 / AI GENERATED UI</p>
+            <h2>二、信息表达效率不足：A2UI 让客服信息从文本走向卡片化</h2>
+            <p class="chapter-lead">Text2UI 是 A2UI Engine 面向存量文本方案的 UI 重构能力：在 B 端输出文本的前提下，对文本进行语义结构理解，把已有文本方案快速升级为卡片、步骤、状态、风险提示、CTA 等 UI 表达，从而提升信息可读性、用户点击率和问题推进效率。</p>
+            <figure class="case-media customer-case-figure" aria-label="Text2UI 长文本到结构化界面">
+              <img class="customer-case-image" src="./assets/customer-service/2.jpg" alt="Text2UI 长文本到结构化界面" loading="lazy" />
+            </figure>
+            <div class="customer-case-point">
+              <p><span aria-hidden="true">•</span>基于客服高频服务场景，抽象信息展示组件、数据总结组件、操作引导组件、文本澄清组件，建立“AI 内容 → UI 组件 → 服务卡片”的转换链路。</p>
+              <figure class="case-media customer-case-figure" aria-label="AI 内容到 UI 组件映射">
+                <img class="customer-case-image" src="./assets/customer-service/3.jpg" alt="AI 内容到 UI 组件映射" loading="lazy" />
+              </figure>
+            </div>
+            <figure class="case-media customer-case-figure" aria-label="服务卡片组件体系">
+              <img class="customer-case-image" src="./assets/customer-service/4.jpg" alt="服务卡片组件体系" loading="lazy" />
+            </figure>
+            <div class="customer-case-point">
+              <p><span aria-hidden="true">•</span><strong>控制生成质量：</strong>通过组件规范、Text2UI Benchmark、视觉评估标准与模型 case 标注，平衡 AI 自由生成与产品体验可控。</p>
+              <figure class="case-media customer-case-figure" aria-label="Text2UI 生成质量评估">
+                <img class="customer-case-image" src="./assets/customer-service/5.jpg" alt="Text2UI 生成质量评估" loading="lazy" />
+              </figure>
+            </div>
+          </section>
+
+          <section class="customer-chapter customer-case-section reveal" id="cs-flow" data-reveal>
+            <p class="chapter-index">02 / AI ASSISTED SERVICE</p>
+            <h2>三、交互缺少场景化引导：AI 增强服务流程</h2>
+            <p class="chapter-lead">当客服从单一文字扩展到语音、IM、图片、视频及页面操作，需要重新设计信息架构与服务节奏，让系统在关键节点主动提供下一步行动，利用多模态能力让客服从“告诉用户怎么做”变成“陪伴用户完成服务”。</p>
+            <ol class="customer-case-steps">
+              <li>VOIP 人工服务体验升级：重新梳理通话状态、服务信息、操作入口与 IM 消息，让用户在一个页面内完成查看、理解与操作；同时增加实时操作引导、注意事项与服务进度。</li>
+            </ol>
+            <div class="customer-case-point">
+              <p><span aria-hidden="true">•</span><strong>数据：</strong>满意度从 80.1% 提升至 84.8%，整体提升 +4.7pp，并超过预期目标。</p>
+              <figure class="case-media customer-case-figure" aria-label="VOIP 人工服务体验升级">
+                <img class="customer-case-image" src="./assets/customer-service/6.jpg" alt="VOIP 人工服务体验升级" loading="lazy" />
+              </figure>
+            </div>
+            <ol class="customer-case-steps" start="2">
+              <li>办理组件优化：适用于用户澄清诉求后无法立刻解答、需要配合提供材料的场景，在 IM 框架中置顶通栏展示，并覆盖信息确认、材料提交、修改材料、平台审核、结果透传和卡片收起等不同阶段。</li>
+            </ol>
+            <div class="customer-case-point">
+              <p><span aria-hidden="true">•</span><strong>数据：</strong>参评率提高 8.53%，智能解决率相对对照组 +5.19%（绝对 +1.56pp），是本轮最明确的正向收益。</p>
+              <figure class="case-media customer-case-figure" aria-label="办理组件优化">
+                <img class="customer-case-image" src="./assets/customer-service/7.jpg" alt="办理组件优化" loading="lazy" />
+              </figure>
+            </div>
+            <ol class="customer-case-steps" start="3">
+              <li>拉群协作沟通新交互探索：官号主动识别异常，官号拉智能 bot 与人工入群，用户全程托管，官号在关键节点介入。</li>
+            </ol>
+            <figure class="case-media customer-case-figure" aria-label="拉群协作沟通新交互">
+              <img class="customer-case-image" src="./assets/customer-service/8.jpg" alt="拉群协作沟通新交互" loading="lazy" />
+            </figure>
+          </section>
+
+          <section class="customer-chapter customer-case-section reveal" id="cs-role" data-reveal>
+            <p class="chapter-index">03 / AI SERVICE CHARACTER</p>
+            <h2>四、服务缺少信任连接：IP 品牌升级</h2>
+            <p class="chapter-lead"><strong>哆来咪（DOREMI）</strong> 是抖音服务的 IP 形象，于 2022.9 完成版权登记，经过多次升级后更具亲和力，旨在让服务更有形、沟通更温暖，应用于抖音 App、客服工作台、帮助中心、95152 热线、评价页面等端内服务场景。</p>
+            <div class="customer-case-copy">
+              <p>背景：创服与客服统一升级品牌色，服务心智拉齐。哆来咪进行了全新升级，在原有基础上更加突出亲和力，依然强调「倾听大耳朵」「音符眼」两个关键特征，让服务更有形，让沟通更温暖。</p>
+              <p>围绕“智能、专业、可信赖”重塑角色表达，融合抖音蓝品牌识别与耳机智能设备形态，并通过配饰、表情与动作语言强化可靠、高效且有温度的专业客服形象。</p>
+            </div>
+            <p class="customer-case-note"><span aria-hidden="true">•</span> 即将上线</p>
+            <p class="customer-case-caption">Before 样式</p>
+            <figure class="case-media customer-case-figure" aria-label="哆来咪角色升级前样式">
+              <img class="customer-case-image" src="./assets/customer-service/9.jpg" alt="哆来咪角色升级前样式" loading="lazy" />
+            </figure>
+            <p class="customer-case-caption">After 样式</p>
+            <figure class="case-media customer-case-figure" aria-label="哆来咪角色升级后样式">
+              <img class="customer-case-image" src="./assets/customer-service/10.jpg" alt="哆来咪角色升级后样式" loading="lazy" />
+            </figure>
+            <figure class="case-media customer-case-figure" aria-label="角色化服务应用">
+              <img class="customer-case-image" src="./assets/customer-service/11.jpg" alt="角色化服务应用" loading="lazy" />
+            </figure>
+
+            <div class="customer-case-subsection">
+              <h3>六、沟通处置项目 UI 支持</h3>
+              <p>通过梳理抖音不同业务场景处置触达沟通的现状，对标业内优秀沟通案例，输出适配业务与用户的标准梯度化处置触达沟通方式。</p>
+              <p>现状：触达手段种类多甚至重复，缺少明确的使用规则；信息结构、话术在不同触达与沟通场景中的一致性较低，沟通分级缺失或使用混乱。</p>
+              <figure class="case-media customer-case-figure" aria-label="沟通处置项目现状">
+                <img class="customer-case-image" src="./assets/customer-service/12.jpg" alt="沟通处置项目现状" loading="lazy" />
+              </figure>
+              <p class="customer-case-caption">多种方案探索</p>
+              <div class="customer-case-triptych">
+                <figure class="case-media customer-case-figure" aria-label="沟通处置方案一"><img class="customer-case-image" src="./assets/customer-service/13.jpg" alt="沟通处置方案一" loading="lazy" /></figure>
+                <figure class="case-media customer-case-figure" aria-label="沟通处置方案二"><img class="customer-case-image" src="./assets/customer-service/14.jpg" alt="沟通处置方案二" loading="lazy" /></figure>
+                <figure class="case-media customer-case-figure" aria-label="沟通处置方案三"><img class="customer-case-image" src="./assets/customer-service/15.jpg" alt="沟通处置方案三" loading="lazy" /></figure>
+              </div>
+              <p class="customer-case-caption">其他组件分级样式</p>
+              <figure class="case-media customer-case-figure" aria-label="其他组件分级样式">
+                <img class="customer-case-image" src="./assets/customer-service/16.jpg" alt="其他组件分级样式" loading="lazy" />
+              </figure>
+              <p>即将上线……</p>
+            </div>
+          </section>
+
+          <section class="customer-chapter customer-case-section customer-conclusion reveal" id="cs-summary" data-reveal>
+            <p class="chapter-index">04 / CONCLUSION</p>
+            <h2>五、AI X C端客服总结</h2>
+            <p class="chapter-lead">通过 AI 生成 UI、智能服务流程与 AI 角色体系的协同演进，推动客服体验从文本客服到卡片客服，再到智能服务与 AI Agent，最终成为能够理解用户、提供行动并建立信任的智能服务伙伴。</p>
+            <figure class="case-media customer-case-figure" aria-label="AI X C端客服总结">
+              <img class="customer-case-image" src="./assets/customer-service/17.jpg" alt="AI X C端客服总结" loading="lazy" />
+            </figure>
+          </section>
+        </article>
+
+        <article class="case-content professional-content ai-professional-content" data-detail-professional>
+          <header class="professional-case-header reveal" data-reveal>
+            <p class="case-eyebrow">AI × DESIGN PRODUCTIVITY · 2026</p>
+            <h1>AI × 专业</h1>
+            <p class="professional-case-deck">AI驱动设计生产力升级，探索智能化产品与创意设计新范式。</p>
+            <section class="professional-summary" aria-labelledby="professional-summary-title">
+              <span class="summary-icon" aria-hidden="true">🌟</span>
+              <div>
+                <h2 id="professional-summary-title">一句话描述</h2>
+                <p>设计正在从“单点交付”走向“智能化生产”，随着 AI 能力快速发展，设计正从方案执行转向以 AI 驱动的设计生产流程构建。</p>
+              </div>
+            </section>
+          </header>
+
+          <section class="customer-chapter professional-case-section professional-chapter reveal" id="pro-context" data-reveal>
+            <p class="chapter-index">00 / CONTEXT</p>
+            <h2>目前挑战</h2>
+            <ul class="professional-bullets">
+              <li><strong>产品设计中设计资产无法被 AI 理解和复用：</strong>随着业务发展，设计侧沉淀了大量组件规范、页面模板、品牌资产与 IP 视觉素材，但仍主要服务于人工设计流程，导致设计资产难以在相似需求中被规模化复用。</li>
+              <li><strong>创意设计中 AIGC 提升创意效率，但视觉生成稳定性不足：</strong>AIGC 显著提升视觉探索效率，但在真实业务中仍面临风格不稳定、角色一致性不足与复杂细节下降的问题，需要在创意效率与设计质量之间取得平衡。</li>
+            </ul>
+          </section>
+
+          <section class="customer-chapter professional-case-section professional-chapter reveal" id="pro-product" data-reveal>
+            <p class="chapter-index">01 / PRODUCT DESIGN</p>
+            <h2>设计资产如何复用：AI 组件库 TFDS</h2>
+            <p>TFDS 是一个设计系统管理平台，用来集中维护多套设计规范（Token、组件、模板），并能把规范导出为 AI 可读的 Skill 文件，让 AI 写代码时自动遵循设计规范。</p>
+            <p>从 0 到 1 搭建 VOIP 客服组件体系，沉淀 18 个核心组件与 8 个页面模板，构建标准化设计资产体系。通过多 IDE 环境验证，将设计规范、组件资产与生成规则整合为 AI 界面生成 Skill，实现设计资产向 AI 能力的转化。</p>
+            <figure class="case-media professional-media" aria-label="TFDS组件库与AI界面生成测试效果">
+              <img src="./assets/ai-professional/1.jpg" alt="TFDS 组件库与 AI 界面生成测试效果" loading="lazy" />
+            </figure>
+            <p class="professional-caption">搭建完成后的测试效果</p>
+            <div class="professional-media-row" aria-label="TFDS组件与界面模板展示">
+              <figure class="case-media professional-media professional-media-square"><img src="./assets/ai-professional/2.jpg" alt="TFDS组件库概览" loading="lazy" /></figure>
+              <figure class="case-media professional-media professional-media-portrait"><img src="./assets/ai-professional/tfds-voice-selector.gif" alt="智能语音服务问题选择动效" loading="lazy" /></figure>
+              <figure class="case-media professional-media professional-media-portrait"><img src="./assets/ai-professional/tfds-voice-listening.gif" alt="智能语音助手聆听动效" loading="lazy" /></figure>
+            </div>
+
+            <div class="professional-subsection">
+              <h3>项目：春节玩法（设计系统延展）</h3>
+              <p>创新应用 AI 工具协同设计模式，联合技术打通“视觉生成—视频制作—动效实现—交互开发”全链路流程，利用 Banana Pro、Seedream Pro 1.5、Gemini 3、Kimi 2.5、灵光等工具完成多模态内容生成，并通过 Coding 快速验证玩法交互，推动设计稿动效精准还原，显著提升活动设计交付效率。</p>
+              <p>推动设计从“单次视觉制作”走向“可复用动效资产”。</p>
+              <p class="professional-caption">相关内容</p>
+              <div class="professional-media-grid professional-media-grid-three">
+                <figure class="case-media professional-media"><img src="./assets/ai-professional/3.jpg" alt="春节玩法视觉探索一" loading="lazy" /></figure>
+                <figure class="case-media professional-media"><img src="./assets/ai-professional/4.jpg" alt="春节玩法视觉探索二" loading="lazy" /></figure>
+                <figure class="case-media professional-media"><img src="./assets/ai-professional/5.jpg" alt="春节玩法视觉探索三" loading="lazy" /></figure>
+              </div>
+              <p class="professional-caption">动效 Coding + Trae solo 模式进行 Lottie 抠图</p>
+              <figure class="case-media professional-media professional-motion-media">
+                <video autoplay muted loop playsinline webkit-playsinline preload="auto" poster="./assets/ai-professional/lottie-crop.jpg" aria-label="动效 Coding 与 Lottie 抠图示例">
+                  <source src="./assets/ai-professional/spring-card-motion.m4v?v=2" type="video/mp4" />
+                </video>
+              </figure>
+              <figure class="case-media professional-media"><img src="./assets/ai-professional/6.jpg" alt="春节玩法动效资产" loading="lazy" /></figure>
+              <ol class="professional-numbered">
+                <li>暖心故事征集活动中设计沉淀一线用户服务感知素材，为后续内容传播、口碑建设及服务优化提供数据支撑。活动累计征集用户故事 1659 篇，经筛选沉淀有效投稿 500 篇，内容覆盖精神陪伴、价格优惠、真诚服务、售后保障及权益关怀等多个用户核心感知场景。</li>
+                <li>抽奖玩法设计中，针对人工进线用户设计春节抽奖红包玩法，通过权益激励提升用户服务体验。活动上线后，参与抽奖用户工单满意度较未触达用户提升 7.14pp，有效验证活动玩法对用户体验提升的正向价值。</li>
+              </ol>
+            </div>
+          </section>
+
+          <section class="customer-chapter professional-case-section professional-chapter reveal" id="pro-creative" data-reveal>
+            <p class="chapter-index">02 / CREATIVE DESIGN</p>
+            <h2>视觉生成稳定建设：探索可控 AI 视觉生成方法</h2>
+            <p>探索 Prompt、参考图、重构与角色一致性，沉淀标准化视觉生产体系。</p>
+            <div class="professional-subsection">
+              <h3>工作流搭建</h3>
+              <p>客服 IM 存在大量节日主题皮肤、高价值用户专属皮肤及活动视觉需求，但传统设计方式周期长、复用率低且多场景适配成本高。结合 GPT Image 等 AIGC 能力，将视觉设计流程标准化并规模化落地。Lv7/Lv8 用户满意度：69% → 97%，1h 完结率：16.19% → 58.95%，显著提升服务体验感知。</p>
+              <figure class="case-media professional-media"><img src="./assets/ai-professional/7.jpg" alt="AIGC视觉生成工作流" loading="lazy" /></figure>
+              <p class="professional-caption">平台分享：AIGC 视觉生成能力建设——白膜稿 + 模糊参考 + 色彩约束，提升复杂角色与场景生成稳定性。</p>
+              <figure class="case-media professional-media"><img src="./assets/ai-professional/8.jpg" alt="AIGC视觉生成方法示例" loading="lazy" /></figure>
+              <p class="professional-caption">IP 案例</p>
+              <div class="professional-media-grid professional-media-grid-two">
+                <figure class="case-media professional-media"><img src="./assets/ai-professional/9.jpg" alt="IP视觉案例一" loading="lazy" /></figure>
+                <figure class="case-media professional-media"><img src="./assets/ai-professional/10.jpg" alt="IP视觉案例二" loading="lazy" /></figure>
+              </div>
+              <p class="professional-caption">反诈运营活动</p>
+              <figure class="case-media professional-media"><img src="./assets/ai-professional/11.jpg" alt="反诈运营活动视觉" loading="lazy" /></figure>
+              <p class="professional-caption">B 端勋章墙</p>
+              <figure class="case-media professional-media"><img src="./assets/ai-professional/12.jpg" alt="B端勋章墙视觉" loading="lazy" /></figure>
+            </div>
+          </section>
+
+          <section class="customer-chapter professional-case-section professional-chapter customer-conclusion reveal" id="pro-summary" data-reveal>
+            <p class="chapter-index">03 / OUTCOME</p>
+            <h2>让设计经验成为可被 AI 调用的生产力</h2>
+            <p class="chapter-lead">通过产品设计的结构化能力与创意设计的生成式能力，构建 AI 驱动的设计生产体系，推动设计从人工创作走向 AI 协同生产。</p>
+          </section>
+        </article>
+
+        <article class="case-content research-content" data-detail-research>
+          <section class="research-project research-project-authoring" id="research-authoring">
+            <header class="case-title research-case-header">
+              <p class="case-eyebrow">AI × USER RESEARCH · 2026</p>
+              <h1>AI X 用户研究</h1>
+              <div class="research-summary-card" aria-labelledby="research-authoring-summary">
+                <span class="summary-icon" aria-hidden="true">🌟</span>
+                <div>
+                  <h2 id="research-authoring-summary">一句话描述</h2>
+                  <p class="research-experience-link">
+                    体验地址：<a href="https://www.coze.cn/expert/10002" target="_blank" rel="noopener noreferrer">https://www.coze.cn/expert/10002</a>
+                  </p>
+                </div>
+              </div>
+            </header>
+
+            <section class="research-case-section">
+              <h2>一、目前挑战</h2>
+              <ul class="feature-list">
+                <li><strong>访谈过程高度依赖人工执行，效率难以提升：</strong>传统访谈依赖研究员人工提问与追问，成本高且质量不稳定，同时现有AI访谈仍存在偏题、追问不足与交互不自然等问题，因此需要通过优化Prompt结构与增加定量题目，让AI具备接近专业研究员的完整访谈能力。</li>
+                <li><strong>传统聊天交互难以承载复杂研究场景：</strong>目前AI访谈仍以纯文本为主，但真实研究包含多种结构化问题，导致回答成本高、信息难结构化，因此需要结合卡片与选项等交互方式，让用户在自然表达与结构化回答之间取得平衡。</li>
+                <li><strong>研究数据回收后，分析整理成本高：</strong>在传统用户研究流程中，访谈数据回收后仍需人工完成筛选、归纳、分析与报告输出，耗时且难以兼顾规模与质量，因此需要引入AI参与数据整理与洞察生成，释放研究员的分析与决策精力。</li>
+              </ul>
+            </section>
+
+            <section class="research-case-section">
+              <h2>二、提高访谈效率在访谈提纲中支持题目插入</h2>
+              <p>在用研Agent的建设中，核心目标是让AI从聊天工具升级为可独立执行访谈任务的智能访谈助手，在定性的访谈中增加定量的题目通过优化访谈策略与生成式访谈UI，实现定性与定量数据的统一采集，并显著提升访谈效率与质量。</p>
+              <figure class="case-media research-media" aria-label="访谈提纲与题目插入设计"><img src="./assets/ai-research/1.jpg" alt="访谈提纲与题目插入设计" loading="eager" /></figure>
+            </section>
+
+            <section class="research-case-section">
+              <h2>三、AI多模态访谈：探索语音交互新形态</h2>
+              <p>在语音访谈能力的探索中，通过多模态语音交互设计提升用户自然表达与结构化回答效率，显著提升研究回收率与参与度。</p>
+              <figure class="case-media research-media" aria-label="AI多模态访谈移动端设计"><img src="./assets/ai-research/2.jpg" alt="AI多模态访谈移动端设计" loading="lazy" /></figure>
+              <figure class="case-media research-media" aria-label="AI多模态访谈交互方案"><img src="./assets/ai-research/3.jpg" alt="AI多模态访谈交互方案" loading="lazy" /></figure>
+            </section>
+          </section>
+
+          <section class="research-project research-project-analysis" id="research-analysis">
+            <section class="research-case-section">
+              <h2>四、AI访谈报告工作流：提升研究生产效率</h2>
+              <ul class="feature-list">
+                <li>在用研Agent中，将研究目标、访谈执行、数据分析与报告生成打通为AI驱动的完整研究闭环，实现从人工执行到AI协作的用户研究流程升级。</li>
+              </ul>
+              <figure class="case-media research-media" aria-label="AI访谈报告工作流设计"><img src="./assets/ai-research/4.jpg" alt="AI访谈报告工作流设计" loading="eager" /></figure>
+            </section>
+
+            <section class="research-case-section">
+              <h2>五、总结</h2>
+              <p>通过AI访谈能力、生成式交互设计与研究流程智能化建设，用户研究正从人工主导转向AI协作模式，访谈效率提升约15%–20%，优质填答率提升至41.36%，AI逐步成为可理解目标、执行访谈并辅助洞察生成的研究协作者。</p>
+            </section>
+          </section>
+        </article>
+
+        <div class="internship-content" data-detail-internship hidden>
+        <article class="case-content meituan-content" data-detail-meituan>
+          <section class="meituan-project meituan-image-only" data-meituan-project="growth">
+            <figure class="case-media meituan-image" aria-label="美团项目切图 26"><img src="./assets/meituan/26.jpg" alt="美团项目切图 26" loading="eager" /></figure>
+            <figure class="case-media meituan-image" aria-label="美团项目切图 27"><img src="./assets/meituan/27.jpg" alt="美团项目切图 27" loading="lazy" /></figure>
+            <figure class="case-media meituan-image" aria-label="美团项目切图 28"><img src="./assets/meituan/28.jpg" alt="美团项目切图 28" loading="lazy" /></figure>
+            <figure class="case-media meituan-image" aria-label="美团项目切图 29"><img src="./assets/meituan/29.jpg" alt="美团项目切图 29" loading="lazy" /></figure>
+            <figure class="case-media meituan-image" aria-label="美团项目切图 30"><img src="./assets/meituan/30.jpg" alt="美团项目切图 30" loading="lazy" /></figure>
+            <figure class="case-media meituan-image" aria-label="美团项目切图 31"><img src="./assets/meituan/31.jpg" alt="美团项目切图 31" loading="lazy" /></figure>
+            <figure class="case-media meituan-image" aria-label="美团项目切图 32"><img src="./assets/meituan/32.jpg" alt="美团项目切图 32" loading="lazy" /></figure>
+            <figure class="case-media meituan-image" aria-label="美团项目切图 33"><img src="./assets/meituan/33.jpg" alt="美团项目切图 33" loading="lazy" /></figure>
+            <figure class="case-media meituan-image" aria-label="美团项目切图 34"><img src="./assets/meituan/34.jpg" alt="美团项目切图 34" loading="lazy" /></figure>
+            <figure class="case-media meituan-image" aria-label="美团项目切图 35"><img src="./assets/meituan/35.jpg" alt="美团项目切图 35" loading="lazy" /></figure>
+            <figure class="case-media meituan-image" aria-label="美团项目切图 36"><img src="./assets/meituan/36.jpg" alt="美团项目切图 36" loading="lazy" /></figure>
+          </section>
+
+          <hr class="case-divider" />
+
+          <section class="meituan-project meituan-image-only" data-meituan-project="branding">
+            <figure class="case-media meituan-image" aria-label="美团项目切图 54"><img src="./assets/meituan/54.jpg" alt="美团项目切图 54" loading="lazy" /></figure>
+          </section>
+        </article>
+
+        <article class="case-content kuaishou-content" data-detail-kuaishou>
+          <section class="kuaishou-project kuaishou-image-only" data-kuaishou-project="asian-games">
+            <figure class="case-media kuaishou-image" aria-label="快手项目切图 37"><img src="./assets/kuaishou/37.jpg" alt="快手项目切图 37" loading="eager" /></figure>
+            <figure class="case-media kuaishou-image" aria-label="快手项目切图 40"><img src="./assets/kuaishou/40.jpg" alt="快手项目切图 40" loading="lazy" /></figure>
+            <figure class="case-media kuaishou-image" aria-label="快手项目切图 44"><img src="./assets/kuaishou/44.jpg" alt="快手项目切图 44" loading="lazy" /></figure>
+            <figure class="case-media kuaishou-image" aria-label="快手项目切图 45"><img src="./assets/kuaishou/45.jpg" alt="快手项目切图 45" loading="lazy" /></figure>
+            <figure class="case-media kuaishou-image" aria-label="快手项目切图 46"><img src="./assets/kuaishou/46.jpg" alt="快手项目切图 46" loading="lazy" /></figure>
+            <figure class="case-media kuaishou-image" aria-label="快手项目切图 47"><img src="./assets/kuaishou/47.jpg" alt="快手项目切图 47" loading="lazy" /></figure>
+            <figure class="case-media kuaishou-image" aria-label="快手项目切图 48"><img src="./assets/kuaishou/48.jpg" alt="快手项目切图 48" loading="lazy" /></figure>
+            <figure class="case-media kuaishou-image" aria-label="快手项目切图 49"><img src="./assets/kuaishou/49.jpg" alt="快手项目切图 49" loading="lazy" /></figure>
+          </section>
+
+          <hr class="case-divider" />
+
+          <section class="kuaishou-project kuaishou-image-only" data-kuaishou-project="spring-festival">
+            <figure class="case-media kuaishou-image" aria-label="快手项目切图 51"><img src="./assets/kuaishou/51.jpg" alt="快手项目切图 51" width="2880" height="6947" loading="lazy" /></figure>
+          </section>
+        </article>
+        </div>
+
+        <article class="case-content other-content" data-detail-other hidden>
+          <figure class="other-project-cover">
+            <img src="./assets/quickshot-project-cover.png" alt="快枪 APP 从 0 到 1 项目视觉设计展示" />
+          </figure>
+
+          <section class="other-project-cta" aria-labelledby="other-project-title">
+            <img class="other-project-avatar" src="./assets/quickshot-avatar.png" alt="项目作者头像" />
+            <div>
+              <h1 id="other-project-title">前往站酷查看完整项目</h1>
+              <p>快枪 APP 是为年轻人娱乐票务交流平台</p>
+            </div>
+            <a class="other-project-button" href="https://www.zcool.com.cn/work/ZNzA2OTAzNDg=.html">去查看</a>
+          </section>
+        </article>
+        </div>
+      </div>
+    </main>
+
+    <div class="copy-toast" role="status" aria-live="polite">复制成功</div>
+    <script src="./app.js?v=44"></script>
+    <script src="./detail.js?v=31"></script>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="description" content="SSSY Portfolio 关于我与工作经历。" />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+    <title>SSSY Portfolio</title>
+  <link rel="stylesheet" href="./detail.css?v=36" />
+    <link rel="stylesheet" href="./about-detail.css?v=2" />
+  </head>
+  <body>
+    <header class="detail-header">
+      <a class="brand" href="./index.html#home" aria-label="SSSY Portfolio 首页">
+        <span>SSSY Portfolio</span>
+      </a>
+
+      <div class="contact-menu">
+        <button class="contact-button" type="button" aria-expanded="false" aria-controls="contact-popover">Contact</button>
+        <div class="contact-popover" id="contact-popover" role="dialog" aria-labelledby="contact-title">
+          <div class="contact-dialog-header">
+            <div><h2 id="contact-title">联系方式</h2><p>欢迎和我联系交流</p></div>
+          </div>
+          <div class="contact-fields">
+            <div class="contact-field-group">
+              <div class="contact-field-heading"><label for="contact-phone">电话</label><button class="contact-copy" type="button" data-copy-target="contact-phone">复制</button></div>
+              <div class="contact-field"><img src="./assets/contact-phone.svg" alt="" /><input id="contact-phone" type="text" value="18052145675" readonly /></div>
+            </div>
+            <div class="contact-field-group">
+              <div class="contact-field-heading"><label for="contact-wechat">微信</label><button class="contact-copy" type="button" data-copy-target="contact-wechat">复制</button></div>
+              <div class="contact-field"><img src="./assets/contact-wechat.svg" alt="" /><input id="contact-wechat" type="text" value="18052145675" readonly /></div>
+            </div>
+            <div class="contact-field-group">
+              <div class="contact-field-heading"><label for="contact-email">邮箱</label><button class="contact-copy" type="button" data-copy-target="contact-email">复制</button></div>
+              <div class="contact-field"><img src="./assets/contact-mail.svg" alt="" /><input id="contact-email" type="text" value="1073736438@qq.com" readonly /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="case-page">
+      <div class="case-layout about-detail-layout">
+        <aside class="case-sidebar" aria-label="关于我导航">
+          <div class="sidebar-topline">
+            <a class="back-link" href="./index.html#about" aria-label="返回 About Me">
+              <img src="./assets/chevron-left.svg" alt="" />
+            </a>
+          </div>
+        </aside>
+
+        <article class="case-content about-detail-content">
+          <header class="case-title">
+            <h1>关于我</h1>
+          </header>
+
+          <section class="case-section about-detail-section" data-about-target="profile">
+            <ul class="feature-list">
+              <li>学校专业：河北工业大学（211）－艺术与科技</li>
+              <li>年龄：22</li>
+              <li>性格：ESTP、超级大 E 人、热情开朗</li>
+              <li>爱好：喜欢美食、拍照、穿搭、二次元、游戏（瓦罗兰特、王者、金铲铲）</li>
+            </ul>
+          </section>
+
+          <section class="case-section about-detail-section" data-about-target="experience">
+            <ul class="feature-list">
+              <li>经历：字节跳动产品设计、美团产品视觉设计、快手运营 UI 设计</li>
+            </ul>
+            <figure class="case-media about-detail-media">
+              <img src="./assets/about-experience.png" alt="字节跳动、美团与快手工作经历" loading="lazy" />
+            </figure>
+          </section>
+        </article>
+      </div>
+    </main>
+
+    <div class="copy-toast" role="status" aria-live="polite">复制成功</div>
+    <script src="./app.js?v=44"></script>
+    <script src="./about-detail.js?v=2"></script>
+  </body>
+</html>
