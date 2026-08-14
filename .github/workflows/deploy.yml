@@ -18,7 +18,7 @@ jobs:
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_REFRESH_TOKEN: ${{ secrets.VERCEL_REFRESH_TOKEN }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -30,6 +30,21 @@ jobs:
 
       - name: Install Vercel CLI
         run: npm install --global vercel@59.0.0
+
+      - name: Create a short-lived Vercel access token
+        shell: bash
+        run: |
+          response="$(curl --fail --silent --show-error \
+            --request POST 'https://api.vercel.com/login/oauth/token' \
+            --header 'Content-Type: application/x-www-form-urlencoded' \
+            --data-urlencode 'client_id=cl_HYyOPBNtFMfHhaUn9L4QPfTZz6TP47bp' \
+            --data-urlencode 'grant_type=refresh_token' \
+            --data-urlencode "refresh_token=$VERCEL_REFRESH_TOKEN")"
+          access_token="$(printf '%s' "$response" | jq --raw-output '.access_token')"
+          test -n "$access_token"
+          test "$access_token" != "null"
+          echo "::add-mask::$access_token"
+          echo "VERCEL_TOKEN=$access_token" >> "$GITHUB_ENV"
 
       - name: Pull Vercel project settings
         run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
