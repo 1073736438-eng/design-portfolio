@@ -3523,3 +3523,172 @@ button.outline-item:not(.is-active):focus-visible {
     transition-delay: 0ms !important;
   }
 }
+
+/* AI X 用户研究：Figma node 45:463
+   Only the right-hand case content follows the Figma node. The shared detail
+   framework (back control, company switcher, sticky directory and spacing)
+   remains unchanged. ------------------------------------------------------- */
+
+.case-page .research-content,
+.case-page .research-content .research-project,
+.case-page .research-case-header,
+.case-page .research-case-section,
+.case-page .research-media {
+  max-width: 1127px;
+}
+
+.case-page .research-case-header {
+  gap: 32px;
+  padding: 0;
+}
+
+.case-page .research-case-header h1,
+.case-page .research-project .case-title h1 {
+  margin: 0;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 34px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 48px;
+}
+
+.case-page .research-summary-card {
+  margin: 0;
+  padding: 20px 16px 24px;
+  border-radius: 6px;
+}
+
+.case-page .research-summary-card h2 {
+  font-weight: 500;
+}
+
+.case-page .research-summary-card p {
+  line-height: 24px;
+}
+
+.case-page .research-case-header + .research-case-section,
+.case-page .research-case-section + .research-case-section,
+.case-page .research-content .research-project-analysis {
+  margin-top: 32px;
+}
+
+.case-page .research-case-section {
+  gap: 18px;
+}
+
+.case-page .research-case-section h2 {
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 28px;
+}
+
+.case-page .research-case-section > p {
+  max-width: none;
+  color: #1f2329;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.case-page .research-case-section > .feature-list {
+  gap: 18px;
+}
+
+.case-page .research-case-section > .feature-list li {
+  color: #1f2329;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.case-page .research-case-section > .feature-list li::marker {
+  color: #1456f0;
+}
+
+.case-page .research-media,
+.case-page .research-media + .research-media {
+  margin-top: 0;
+  border-radius: 16px;
+}
+
+@media (max-width: 820px) {
+  .case-page .research-case-header h1,
+  .case-page .research-project .case-title h1 {
+    font-size: 30px;
+    line-height: 42px;
+  }
+}
+
+/* Shared detail-page visual specification ---------------------------------
+   Research is the reference: typography, copy color and media treatment are
+   shared, while every case keeps its own composition and image proportions. */
+:root {
+  --detail-page-title-size: 34px;
+  --detail-page-title-line: 48px;
+  --detail-section-title-size: 20px;
+  --detail-section-title-line: 28px;
+  --detail-body-size: 16px;
+  --detail-body-line: 26px;
+  --detail-media-radius: 16px;
+}
+
+.case-page .case-title h1,
+.case-page .professional-case-header h1,
+.case-page .customer-service-hero h1 {
+  color: #1f2329;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: var(--detail-page-title-size);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: var(--detail-page-title-line);
+}
+
+.case-page .customer-chapter > h2,
+.case-page .professional-case-section > h2,
+.case-page .case-section > h2,
+.case-page .kuaishou-gift-module > h2,
+.case-page .other-project-cta h1 {
+  color: #1f2329;
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: var(--detail-section-title-size);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: var(--detail-section-title-line);
+}
+
+.case-page .chapter-lead,
+.case-page .professional-case-section > p,
+.case-page .case-section > p,
+.case-page .other-project-cta p {
+  color: #1f2329;
+  font-size: var(--detail-body-size);
+  line-height: var(--detail-body-line);
+}
+
+.case-page .case-media,
+.case-page .meituan-image,
+.case-page .kuaishou-image,
+.case-page .professional-media,
+.case-page .customer-case-figure,
+.case-page .other-project-cover {
+  overflow: hidden;
+  border-radius: var(--detail-media-radius);
+}
+
+.case-page .case-media img,
+.case-page .meituan-image img,
+.case-page .kuaishou-image img,
+.case-page .professional-media img,
+.case-page .customer-case-figure img,
+.case-page .other-project-cover img {
+  border-radius: inherit;
+}
+
+@media (max-width: 560px) {
+  :root {
+    --detail-page-title-size: 30px;
+    --detail-page-title-line: 42px;
+    --detail-body-size: 15px;
+    --detail-body-line: 24px;
+  }
+}
