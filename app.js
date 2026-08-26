@@ -1,3 +1,69 @@
+const configureReveal = (element, level = "section", delay = 0) => {
+  if (!(element instanceof HTMLElement)) return;
+  element.classList.add("reveal");
+  element.dataset.reveal = "";
+  element.dataset.revealLevel = level;
+  element.style.setProperty("--reveal-delay", `${delay}ms`);
+};
+
+const unwrapReveal = (element) => {
+  if (!(element instanceof HTMLElement)) return;
+  element.classList.remove("reveal", "is-visible");
+  element.removeAttribute("data-reveal");
+  element.removeAttribute("data-reveal-level");
+  element.style.removeProperty("--reveal-delay");
+};
+
+const prepareRevealSystem = () => {
+  if (document.documentElement.classList.contains("homepage-root")) {
+    const heroIntro = document.querySelector(".intro");
+    const aboutHeading = document.querySelector(".about-heading");
+
+    [heroIntro, aboutHeading].forEach(unwrapReveal);
+
+    configureReveal(heroIntro?.querySelector("h1"), "hero", 0);
+    configureReveal(heroIntro?.querySelector(".intro-meta"), "secondary", 100);
+    configureReveal(document.querySelector(".card-stage"), "visual", 240);
+
+    configureReveal(aboutHeading?.querySelector("h2"), "hero", 0);
+    configureReveal(aboutHeading?.querySelector(".about-introduction"), "section", 70);
+    configureReveal(aboutHeading?.querySelector(".about-actions"), "secondary", 140);
+    configureReveal(document.querySelector(".about-gallery"), "visual", 190);
+
+    [
+      [".work-projects-heading", "hero", 0],
+      [".work-projects-sidebar", "section", 90],
+      [".work-project-visual-wrap", "visual", 190],
+      [".playground-heading", "hero", 0],
+      [".playground-sidebar", "section", 90],
+      [".playground-visual-wrap", "visual", 190],
+    ].forEach(([selector, level, delay]) =>
+      configureReveal(document.querySelector(selector), level, delay)
+    );
+    return;
+  }
+
+  document.querySelectorAll("[data-reveal]").forEach((element) => {
+    const level = element.matches("header, .case-title, .professional-case-header")
+      ? "hero"
+      : element.matches("figure, .case-media")
+        ? "visual"
+        : "section";
+    configureReveal(element, level, level === "visual" ? 120 : 0);
+  });
+
+  document
+    .querySelectorAll(
+      ".case-content > header, .case-content > section, .about-detail-content > section"
+    )
+    .forEach((element) => {
+      if (element.matches("[data-reveal]") || element.querySelector("[data-reveal]")) return;
+      const level = element.matches("header, :first-child") ? "hero" : "section";
+      configureReveal(element, level, 0);
+    });
+};
+
+prepareRevealSystem();
 const revealItems = document.querySelectorAll("[data-reveal]");
 const siteHeader = document.querySelector(".site-header");
 const mainNavLinks = document.querySelectorAll('.main-nav a[href^="#"]');
@@ -10,6 +76,7 @@ const workSection = document.querySelector(".work-projects");
 const workTabs = document.querySelectorAll(".work-tab");
 const workProjects = document.querySelectorAll(".work-project");
 const workVisual = document.querySelector("[data-project-visual]");
+const workVisualImage = document.querySelector("[data-project-visual-image]");
 const workVisualLink = document.querySelector("[data-project-visual-link]");
 const workProjectDuration = 4000;
 let workProjectTimer;
@@ -52,7 +119,7 @@ if (aboutGallery && aboutGalleryTrack) {
     frame: 0,
   };
   const AUTO_VELOCITY = 0.36;
-  const CARD_DRAG_DISTANCE = 310;
+  const CARD_GAP = 16;
 
   const wrapIndex = (index) => ((index % cards.length) + cards.length) % cards.length;
   const wrapDistance = (distance) => {
@@ -70,7 +137,7 @@ if (aboutGallery && aboutGalleryTrack) {
 
   const renderAboutGallery = () => {
     const cardWidth = cards[0]?.offsetWidth || 282;
-    const baseGap = cardWidth - 5;
+    const baseGap = cardWidth + CARD_GAP;
 
     cards.forEach((card, index) => {
       const offset = wrapDistance(index - motion.position);
@@ -181,7 +248,8 @@ if (aboutGallery && aboutGalleryTrack) {
     const totalDelta = event.clientX - motion.startPointerX;
 
     if (Math.abs(totalDelta) > 5) motion.moved = true;
-    motion.position = motion.startPosition - totalDelta / CARD_DRAG_DISTANCE;
+    const cardDragDistance = (cards[0]?.offsetWidth || 282) + CARD_GAP;
+    motion.position = motion.startPosition - totalDelta / cardDragDistance;
     motion.velocity = AUTO_VELOCITY;
     motion.lastPointerX = event.clientX;
     motion.lastPointerTime = now;
@@ -227,13 +295,74 @@ const navigationSections = Array.from(mainNavLinks)
   .map((link) => document.querySelector(link.getAttribute("href")))
   .filter(Boolean);
 
+const slidingTabBars = [];
+
+const setupSlidingTabBar = (container, itemSelector, activeSelector) => {
+  if (!container) return null;
+  const indicator = document.createElement("span");
+  indicator.className = "tab-selection-slider";
+  indicator.setAttribute("aria-hidden", "true");
+  container.prepend(indicator);
+
+  const update = (animate = true) => {
+    const activeItem = container.querySelector(activeSelector);
+    if (!activeItem || activeItem.hidden) {
+      indicator.classList.remove("is-visible");
+      return;
+    }
+    const containerRect = container.getBoundingClientRect();
+    const itemRect = activeItem.getBoundingClientRect();
+    indicator.classList.toggle("is-instant", !animate);
+    indicator.style.setProperty("--slider-x", `${itemRect.left - containerRect.left}px`);
+    indicator.style.setProperty("--slider-y", `${itemRect.top - containerRect.top}px`);
+    indicator.style.setProperty("--slider-width", `${itemRect.width}px`);
+    indicator.style.setProperty("--slider-height", `${itemRect.height}px`);
+    indicator.classList.add("is-visible");
+    if (!animate) {
+      window.requestAnimationFrame(() => indicator.classList.remove("is-instant"));
+    }
+  };
+
+  container.querySelectorAll(itemSelector).forEach((item) => {
+    item.classList.add("has-selection-slider");
+  });
+  const controller = { container, update };
+  slidingTabBars.push(controller);
+  window.requestAnimationFrame(() => update(false));
+  return controller;
+};
+
+const mainNavSlider = setupSlidingTabBar(
+  document.querySelector(".main-nav"),
+  'a[href^="#"]',
+  'a[aria-current="true"]'
+);
+const workTabsSlider = setupSlidingTabBar(
+  document.querySelector(".work-tabs"),
+  ".work-tab",
+  ".work-tab.is-active"
+);
+
 const updateNavigationState = () => {
   const headerHeight = siteHeader?.getBoundingClientRect().height ?? 0;
   const activationLine = headerHeight + window.innerHeight * 0.22;
-  const currentSection = navigationSections.find((section) => {
+  const matchedSection = navigationSections.find((section) => {
     const bounds = section.getBoundingClientRect();
     return bounds.top <= activationLine && bounds.bottom > activationLine;
   });
+
+  const footerBounds = document.querySelector("#footer")?.getBoundingClientRect();
+  const isFooterActive = footerBounds
+    ? footerBounds.top <= activationLine && footerBounds.bottom > activationLine
+    : false;
+  const currentSection = isFooterActive ? undefined : matchedSection;
+
+  const currentSectionId = currentSection?.id;
+  siteHeader?.classList.toggle(
+    "is-dark-section",
+    currentSectionId === "work" || currentSectionId === "playground"
+  );
+  siteHeader?.classList.toggle("is-playground-section", currentSectionId === "playground");
 
   mainNavLinks.forEach((link) => {
     const isCurrent = currentSection && link.getAttribute("href") === `#${currentSection.id}`;
@@ -243,6 +372,7 @@ const updateNavigationState = () => {
       link.removeAttribute("aria-current");
     }
   });
+  mainNavSlider?.update();
 };
 
 const updatePageNavigation = () => {
@@ -252,7 +382,10 @@ const updatePageNavigation = () => {
 
 updatePageNavigation();
 window.addEventListener("scroll", updatePageNavigation, { passive: true });
-window.addEventListener("resize", updateNavigationState);
+window.addEventListener("resize", () => {
+  updateNavigationState();
+  slidingTabBars.forEach(({ update }) => update(false));
+});
 
 const resetCardMotion = () => {
   if (cardMotion.frame) {
@@ -297,6 +430,48 @@ contactButton?.addEventListener("click", () => {
   setContactMenu(!contactMenu?.classList.contains("is-open"));
 });
 
+const footerContactTrigger = document.querySelector("[data-footer-contact]");
+const footerContactModal = document.querySelector("[data-footer-contact-modal]");
+const footerModalClose = footerContactModal?.querySelector("[data-footer-modal-close]");
+const footerModalConfirm = footerContactModal?.querySelector("[data-footer-modal-confirm]");
+const footerCtaTitle = document.querySelector("#footer-cta-title");
+
+const setFooterContactModal = (isOpen) => {
+  if (!footerContactModal) return;
+  footerContactModal.hidden = !isOpen;
+  document.body.classList.toggle("has-open-modal", isOpen);
+  if (isOpen) {
+    footerModalClose?.focus({ preventScroll: true });
+  } else {
+    footerContactTrigger?.focus({ preventScroll: true });
+  }
+};
+
+footerContactTrigger?.addEventListener("click", () => setFooterContactModal(true));
+footerModalClose?.addEventListener("click", () => setFooterContactModal(false));
+footerModalConfirm?.addEventListener("click", () => setFooterContactModal(false));
+footerContactModal?.addEventListener("click", (event) => {
+  if (event.target === footerContactModal) setFooterContactModal(false);
+});
+
+if (footerCtaTitle && "IntersectionObserver" in window && !reducedMotion.matches) {
+  const footerTitleObserver = new IntersectionObserver(
+    (entries, observer) => {
+      const titleEntry = entries.find((entry) => entry.isIntersecting);
+      if (!titleEntry) return;
+      footerCtaTitle.classList.add("is-shimmering");
+      observer.disconnect();
+    },
+    { threshold: 0.65 }
+  );
+  footerTitleObserver.observe(footerCtaTitle);
+  footerCtaTitle.addEventListener(
+    "animationend",
+    () => footerCtaTitle.classList.remove("is-shimmering"),
+    { once: true }
+  );
+}
+
 document.addEventListener("click", (event) => {
   if (contactMenu && !contactMenu.contains(event.target)) {
     setContactMenu(false);
@@ -305,6 +480,10 @@ document.addEventListener("click", (event) => {
 
 document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
+  if (footerContactModal && !footerContactModal.hidden) {
+    setFooterContactModal(false);
+    return;
+  }
   setContactMenu(false);
   contactButton?.focus();
 });
@@ -344,11 +523,7 @@ document.querySelectorAll(".contact-copy").forEach((copyButton) => {
   });
 });
 
-const showRevealItems = () => {
-  revealItems.forEach((item, index) => {
-    window.setTimeout(() => item.classList.add("is-visible"), index * 90);
-  });
-};
+const showRevealItems = () => revealItems.forEach((item) => item.classList.add("is-visible"));
 
 if ("IntersectionObserver" in window) {
   const observer = new IntersectionObserver(
@@ -359,7 +534,7 @@ if ("IntersectionObserver" in window) {
         observerInstance.unobserve(entry.target);
       });
     },
-    { threshold: 0.18 }
+    { threshold: 0.08, rootMargin: "0px 0px 10% 0px" }
   );
 
   revealItems.forEach((item) => observer.observe(item));
@@ -406,19 +581,14 @@ const updateCardScrollFlip = () => {
   const direction = currentScrollY - lastCardScrollY;
   const heroHeight = heroSection.offsetHeight;
   const flipDownAt = Math.min(150, Math.max(72, window.innerHeight * 0.09));
-  const hasEnteredLowerContent = currentScrollY > heroHeight * 0.72;
-  const hasReturnedHome = currentScrollY < heroHeight * 0.34;
 
-  if (direction > 0 && currentScrollY >= flipDownAt) {
-    setCardFlipped(true);
-  }
-
-  if (hasEnteredLowerContent) {
+  if (currentScrollY >= flipDownAt) {
     cardHasLeftHero = true;
+    if (direction > 0) setCardFlipped(true);
   }
 
-  if (direction < 0 && cardHasLeftHero && hasReturnedHome) {
-    setCardFlipped(false);
+  if (currentScrollY < flipDownAt) {
+    if (cardHasLeftHero) setCardFlipped(false);
     cardHasLeftHero = false;
   }
 
@@ -482,57 +652,57 @@ const projectVisuals = {
   "customer-service": {
     title: "AI X C端客服",
     description: "AI驱动客服场景体验升级",
-    background: 'url("./assets/home-work-customer-service-v3.png") center / cover no-repeat',
+    background: 'url("./assets/home-work-customer-service-v3.png") right center / contain no-repeat',
   },
   professional: {
     title: "AI X 专业",
     description: "让专业工作流更快、更清晰",
-    background: 'url("./assets/home-work-professional.png") center / cover no-repeat',
+    background: 'url("./assets/home-work-professional.png") right center / contain no-repeat',
   },
   research: {
     title: "AI X 用户研究",
     description: "从真实洞察出发设计更好的体验",
-    background: 'url("./assets/home-work-research.png") center / cover no-repeat',
+    background: 'url("./assets/home-work-research.png") right center / contain no-repeat',
   },
   growth: {
     title: "增长玩法",
     description: "通过关键节点设计与活动视觉包装，提升参与意愿和转化效率，推动业务目标落地。",
-    background: 'url("./assets/home-work-growth-v2.png") center / cover no-repeat',
+    background: 'url("./assets/home-work-growth-v2.png") right center / contain no-repeat',
   },
   branding: {
     title: "品牌设计",
     description: "内部玲珑系统logo设计",
-    background: 'url("./assets/home-work-branding.png") center / cover no-repeat',
+    background: 'url("./assets/home-work-branding.png") right center / contain no-repeat',
   },
   "asian-games": {
     title: "亚运会电竞会场",
     description: "2023亚运会相关设计",
-    background: 'url("./assets/home-work-asian-games.png") center / cover no-repeat',
+    background: 'url("./assets/home-work-asian-games.png") right center / contain no-repeat',
   },
   "spring-festival": {
     title: "春节泛化线会场",
     description: "2024春节设计",
-    background: 'url("./assets/home-work-spring-festival.png") center / cover no-repeat',
+    background: 'url("./assets/home-work-spring-festival.png") right center / contain no-repeat',
   },
   "visual-design": {
     title: "视觉设计",
     description: "直播礼物设计、人物活动海报、物料延展等",
-    background: 'url("./assets/home-work-visual-design.png") center / cover no-repeat',
+    background: 'url("./assets/home-work-visual-design.png") right center / contain no-repeat',
   },
   "meituan-internship": {
     title: "美团",
     description: "聚焦增长玩法、商详体验优化与品牌视觉建设",
-    background: 'url("./assets/home-work-meituan-internship.png") center / cover no-repeat',
+    background: 'url("./assets/home-work-meituan-internship.png") right center / contain no-repeat',
   },
   "kuaishou-internship": {
     title: "快手",
     description: "聚焦大型活动会场、春节项目与运营视觉设计",
-    background: 'url("./assets/home-work-kuaishou-internship.png") center / cover no-repeat',
+    background: 'url("./assets/home-work-kuaishou-internship.png") right center / contain no-repeat',
   },
   "other-project": {
     title: "快抢APP虚拟项目",
     description: "站酷二次项目、点赞收藏99+",
-    background: 'url("./assets/home-work-other-project.png") center / cover no-repeat',
+    background: 'url("./assets/home-work-other-project.png") right center / contain no-repeat',
   },
 };
 
@@ -620,13 +790,22 @@ const activateProject = (projectId) => {
   }
 
   if (!workVisual) return;
+  const isSuppliedImage = suppliedImageProjectIds.includes(projectId);
+  const imageUrl = project.background
+    .match(/url\(([^)]+)\)/)?.[1]
+    ?.replace(/^['"]|['"]$/g, "") ?? "";
   workVisual.classList.toggle(
     "has-supplied-image",
-    suppliedImageProjectIds.includes(projectId)
+    isSuppliedImage
   );
+  if (workVisualImage) {
+    workVisualImage.hidden = !isSuppliedImage || !imageUrl;
+    if (imageUrl) workVisualImage.src = imageUrl;
+  }
   workVisual.classList.add("is-changing");
+  workVisual.style.background = isSuppliedImage ? "transparent" : project.background;
   window.setTimeout(() => {
-    workVisual.style.background = project.background;
+    workVisual.style.background = isSuppliedImage ? "transparent" : project.background;
     workVisual.setAttribute("aria-label", `${project.title}项目展示`);
     workVisual.classList.remove("is-changing");
   }, 160);
@@ -686,6 +865,7 @@ workTabs.forEach((tab) => {
       item.classList.toggle("is-active", isActive);
       item.setAttribute("aria-selected", String(isActive));
     });
+    workTabsSlider?.update();
     renderWorkCompany(tab.dataset.category);
   });
 });
@@ -897,7 +1077,9 @@ observeAutoAdvanceSection({
 });
 
 const detailPreviewImages = Array.from(
-  document.querySelectorAll(".case-content .case-media img, .case-content .other-project-cover img")
+  document.querySelectorAll(
+    ".case-content .case-media img, .case-content .other-project-cover:not([href]) img"
+  )
 );
 
 if (detailPreviewImages.length) {
@@ -909,14 +1091,93 @@ if (detailPreviewImages.length) {
   lightbox.hidden = true;
   lightbox.innerHTML = `
     <button class="image-lightbox-close" type="button" aria-label="关闭图片预览">×</button>
-    <img class="image-lightbox-image" alt="" />
+    <button class="image-lightbox-nav image-lightbox-prev" type="button" aria-label="查看上一张图片">‹</button>
+    <div class="image-lightbox-stage">
+      <img class="image-lightbox-image" alt="" draggable="false" />
+    </div>
+    <button class="image-lightbox-nav image-lightbox-next" type="button" aria-label="查看下一张图片">›</button>
+    <div class="image-lightbox-toolbar" aria-label="图片缩放工具栏">
+      <button type="button" data-lightbox-zoom-out aria-label="缩小图片">−</button>
+      <output class="image-lightbox-zoom" aria-live="polite">100%</output>
+      <button type="button" data-lightbox-zoom-in aria-label="放大图片">＋</button>
+      <button type="button" data-lightbox-zoom-reset aria-label="恢复原始缩放">1:1</button>
+    </div>
+    <div class="image-lightbox-counter" aria-live="polite"></div>
   `;
   document.body.append(lightbox);
 
   const lightboxImage = lightbox.querySelector(".image-lightbox-image");
   const lightboxClose = lightbox.querySelector(".image-lightbox-close");
+  const lightboxStage = lightbox.querySelector(".image-lightbox-stage");
+  const lightboxPrev = lightbox.querySelector(".image-lightbox-prev");
+  const lightboxNext = lightbox.querySelector(".image-lightbox-next");
+  const zoomOutButton = lightbox.querySelector("[data-lightbox-zoom-out]");
+  const zoomInButton = lightbox.querySelector("[data-lightbox-zoom-in]");
+  const zoomResetButton = lightbox.querySelector("[data-lightbox-zoom-reset]");
+  const zoomOutput = lightbox.querySelector(".image-lightbox-zoom");
+  const lightboxCounter = lightbox.querySelector(".image-lightbox-counter");
   let imagePreviewTrigger = null;
   let previousBodyOverflow = "";
+  let previewSequence = [];
+  let previewIndex = 0;
+  let zoomLevel = 1;
+  let panX = 0;
+  let panY = 0;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let dragStartPanX = 0;
+  let dragStartPanY = 0;
+  let activePointerId = null;
+
+  const getPanLimits = () => ({
+    x: Math.max(0, (lightboxImage.clientWidth * zoomLevel - lightboxStage.clientWidth) / 2),
+    y: Math.max(0, (lightboxImage.clientHeight * zoomLevel - lightboxStage.clientHeight) / 2),
+  });
+
+  const setPan = (nextPanX, nextPanY) => {
+    const panLimits = getPanLimits();
+    panX = Math.min(panLimits.x, Math.max(-panLimits.x, nextPanX));
+    panY = Math.min(panLimits.y, Math.max(-panLimits.y, nextPanY));
+    lightboxImage.style.setProperty("--lightbox-pan-x", `${panX}px`);
+    lightboxImage.style.setProperty("--lightbox-pan-y", `${panY}px`);
+    lightboxStage.classList.toggle(
+      "can-pan",
+      zoomLevel > 1 && (panLimits.x > 1 || panLimits.y > 1)
+    );
+  };
+
+  const resetPan = () => setPan(0, 0);
+
+  const setZoom = (nextZoom) => {
+    zoomLevel = Math.min(4, Math.max(0.5, Math.round(nextZoom * 4) / 4));
+    lightboxImage.style.setProperty("--lightbox-zoom", String(zoomLevel));
+    zoomOutput.value = `${Math.round(zoomLevel * 100)}%`;
+    lightboxStage.classList.toggle("is-zoomed", zoomLevel > 1);
+    window.requestAnimationFrame(() => {
+      if (zoomLevel <= 1) resetPan();
+      else setPan(panX, panY);
+    });
+  };
+
+  const renderPreviewImage = () => {
+    const image = previewSequence[previewIndex];
+    if (!image) return;
+    lightboxImage.src = image.currentSrc || image.src;
+    lightboxImage.alt = image.alt || "详情图片";
+    lightboxCounter.textContent = `${previewIndex + 1} / ${previewSequence.length}`;
+    const hasMultipleImages = previewSequence.length > 1;
+    lightboxPrev.hidden = !hasMultipleImages;
+    lightboxNext.hidden = !hasMultipleImages;
+    setZoom(1);
+    resetPan();
+    lightboxStage.scrollTo({ top: 0, left: 0 });
+  };
+
+  const stepPreview = (direction) => {
+    if (previewSequence.length < 2) return;
+    previewIndex = (previewIndex + direction + previewSequence.length) % previewSequence.length;
+    renderPreviewImage();
+  };
 
   const closeImagePreview = () => {
     if (lightbox.hidden) return;
@@ -924,6 +1185,7 @@ if (detailPreviewImages.length) {
     window.setTimeout(() => {
       lightbox.hidden = true;
       lightboxImage.removeAttribute("src");
+      previewSequence = [];
     }, 180);
     document.body.style.overflow = previousBodyOverflow;
     imagePreviewTrigger?.focus({ preventScroll: true });
@@ -932,8 +1194,12 @@ if (detailPreviewImages.length) {
   const openImagePreview = (image) => {
     imagePreviewTrigger = image;
     previousBodyOverflow = document.body.style.overflow;
-    lightboxImage.src = image.currentSrc || image.src;
-    lightboxImage.alt = image.alt || "详情图片";
+    previewSequence = detailPreviewImages.filter(
+      (candidate) => candidate.offsetParent !== null && !candidate.closest("[hidden]")
+    );
+    if (!previewSequence.includes(image)) previewSequence = [image, ...previewSequence];
+    previewIndex = Math.max(0, previewSequence.indexOf(image));
+    renderPreviewImage();
     lightbox.hidden = false;
     document.body.style.overflow = "hidden";
     window.requestAnimationFrame(() => {
@@ -956,11 +1222,77 @@ if (detailPreviewImages.length) {
   });
 
   lightboxClose.addEventListener("click", closeImagePreview);
+  lightboxPrev.addEventListener("click", () => stepPreview(-1));
+  lightboxNext.addEventListener("click", () => stepPreview(1));
+  zoomOutButton.addEventListener("click", () => setZoom(zoomLevel - 0.25));
+  zoomInButton.addEventListener("click", () => setZoom(zoomLevel + 0.25));
+  zoomResetButton.addEventListener("click", () => setZoom(1));
+  lightboxStage.addEventListener(
+    "wheel",
+    (event) => {
+      event.preventDefault();
+      setZoom(zoomLevel + (event.deltaY < 0 ? 0.25 : -0.25));
+    },
+    { passive: true }
+  );
+  lightboxImage.addEventListener("load", () => setPan(panX, panY));
+  lightboxImage.addEventListener("dragstart", (event) => event.preventDefault());
+  lightboxStage.addEventListener("pointerdown", (event) => {
+    const panLimits = getPanLimits();
+    if (event.button !== 0 || zoomLevel <= 1 || (panLimits.x <= 1 && panLimits.y <= 1)) return;
+    event.preventDefault();
+    activePointerId = event.pointerId;
+    dragStartX = event.clientX;
+    dragStartY = event.clientY;
+    dragStartPanX = panX;
+    dragStartPanY = panY;
+    lightboxStage.setPointerCapture(activePointerId);
+    lightboxStage.classList.add("is-dragging");
+  });
+  lightboxStage.addEventListener("pointermove", (event) => {
+    if (event.pointerId !== activePointerId) return;
+    event.preventDefault();
+    setPan(
+      dragStartPanX + event.clientX - dragStartX,
+      dragStartPanY + event.clientY - dragStartY
+    );
+  });
+
+  const finishLightboxDrag = (event) => {
+    if (event.pointerId !== activePointerId) return;
+    if (lightboxStage.hasPointerCapture(activePointerId)) {
+      lightboxStage.releasePointerCapture(activePointerId);
+    }
+    activePointerId = null;
+    lightboxStage.classList.remove("is-dragging");
+    setPan(panX, panY);
+  };
+
+  lightboxStage.addEventListener("pointerup", finishLightboxDrag);
+  lightboxStage.addEventListener("pointercancel", finishLightboxDrag);
+  window.addEventListener("resize", () => {
+    if (!lightbox.hidden) setPan(panX, panY);
+  });
   lightbox.addEventListener("click", (event) => {
     if (event.target === lightbox) closeImagePreview();
   });
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !lightbox.hidden) closeImagePreview();
+    if (lightbox.hidden) return;
+    if (event.key === "Escape") closeImagePreview();
+    if (event.key === "ArrowLeft") stepPreview(-1);
+    if (event.key === "ArrowRight") stepPreview(1);
+    if (event.key === "+" || event.key === "=") {
+      event.preventDefault();
+      setZoom(zoomLevel + 0.25);
+    }
+    if (event.key === "-") {
+      event.preventDefault();
+      setZoom(zoomLevel - 0.25);
+    }
+    if (event.key === "0") {
+      event.preventDefault();
+      setZoom(1);
+    }
   });
 }
 
@@ -998,5 +1330,134 @@ if (experienceOpenButton && experienceModal && experienceCloseButton) {
   });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && !experienceModal.hidden) closeExperienceModal();
+  });
+}
+
+if (document.documentElement.classList.contains("homepage-root")) {
+  const homepageSlides = [
+    heroSection,
+    workSection,
+    aboutSection,
+    playgroundSection,
+    document.querySelector("#footer"),
+  ].filter(Boolean);
+
+  let keyboardSlideLocked = false;
+  let heroWheelLastEventAt = Number.NEGATIVE_INFINITY;
+  const heroWheelGestureGap = 90;
+
+  const getHeaderOffset = () => siteHeader?.getBoundingClientRect().height || 0;
+  const getCurrentSlideIndex = () => {
+    const anchorY = getHeaderOffset() + 2;
+    const containingIndex = homepageSlides.findIndex((slide) => {
+      const rect = slide.getBoundingClientRect();
+      return rect.top <= anchorY && rect.bottom > anchorY;
+    });
+
+    if (containingIndex !== -1) return containingIndex;
+
+    return homepageSlides.reduce((closestIndex, slide, index) => {
+      const distance = Math.abs(slide.getBoundingClientRect().top - anchorY);
+      const closestDistance = Math.abs(
+        homepageSlides[closestIndex].getBoundingClientRect().top - anchorY
+      );
+      return distance < closestDistance ? index : closestIndex;
+    }, 0);
+  };
+
+  const goToHomepageSlide = (index) => {
+    const nextIndex = Math.max(0, Math.min(homepageSlides.length - 1, index));
+    const target = homepageSlides[nextIndex];
+    if (!target || keyboardSlideLocked) return;
+
+    keyboardSlideLocked = true;
+    target.scrollIntoView({
+      behavior: reducedMotion.matches ? "auto" : "smooth",
+      block: "start",
+    });
+    window.setTimeout(() => {
+      keyboardSlideLocked = false;
+    }, reducedMotion.matches ? 80 : 500);
+  };
+
+  window.addEventListener(
+    "wheel",
+    (event) => {
+      if (
+        event.ctrlKey ||
+        Math.abs(event.deltaY) <= Math.abs(event.deltaX) ||
+        event.deltaY <= 0 ||
+        Math.abs(event.deltaY) < 1.5
+      ) {
+        return;
+      }
+      if (
+        document.querySelector(".image-lightbox:not([hidden])") ||
+        document.querySelector(".experience-modal:not([hidden])")
+      ) {
+        return;
+      }
+
+      const currentIndex = getCurrentSlideIndex();
+      if (currentIndex !== 0) return;
+
+      const now = performance.now();
+      const isNewGesture = now - heroWheelLastEventAt > heroWheelGestureGap;
+      heroWheelLastEventAt = now;
+      event.preventDefault();
+
+      // Consume every wheel event belonging to the same physical gesture so
+      // the first downward gesture only flips the card. A fresh gesture then
+      // advances to Work Projects.
+      if (!isNewGesture) return;
+
+      const isFlipped = flipCard?.getAttribute("aria-pressed") === "true";
+      if (!isFlipped) {
+        setCardFlipped(true);
+        return;
+      }
+
+      goToHomepageSlide(1);
+    },
+    { passive: false }
+  );
+
+  document.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented || event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+    if (
+      event.target instanceof Element &&
+      event.target.closest("input, textarea, select, button, a, [contenteditable='true']")
+    ) {
+      return;
+    }
+    if (
+      document.querySelector(".image-lightbox:not([hidden])") ||
+      document.querySelector(".experience-modal:not([hidden])")
+    ) {
+      return;
+    }
+
+    const currentIndex = getCurrentSlideIndex();
+    let targetIndex = null;
+
+    if (event.key === "ArrowDown" || event.key === "PageDown" || (event.key === " " && !event.shiftKey)) {
+      const isFlipped = flipCard?.getAttribute("aria-pressed") === "true";
+      if (currentIndex === 0 && !isFlipped) {
+        event.preventDefault();
+        setCardFlipped(true);
+        return;
+      }
+      targetIndex = currentIndex + 1;
+    } else if (event.key === "ArrowUp" || event.key === "PageUp" || (event.key === " " && event.shiftKey)) {
+      targetIndex = currentIndex - 1;
+    } else if (event.key === "Home") {
+      targetIndex = 0;
+    } else if (event.key === "End") {
+      targetIndex = homepageSlides.length - 1;
+    }
+
+    if (targetIndex === null) return;
+    event.preventDefault();
+    goToHomepageSlide(targetIndex);
   });
 }
