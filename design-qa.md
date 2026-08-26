@@ -50,3 +50,23 @@ final result: passed
 - Passed: JavaScript syntax check completed without errors.
 
 Final result: passed
+
+## About Me 拍立得照片墙（2026-08-26）
+
+- Source visual truth: `/var/folders/v6/s62f809x1fl6cx5m61x8d3hw0000gn/T/codex-clipboard-39493fa6-fd3f-4555-8c9f-180d582f196c.png`; placement reference: `/var/folders/v6/s62f809x1fl6cx5m61x8d3hw0000gn/T/codex-clipboard-c601d72e-cb39-4c0d-8808-30c808fc540b.png`.
+- Implementation screenshot: `/Users/bytedance/Documents/design/about-polaroids-implementation.png`.
+- Combined comparison evidence: `/Users/bytedance/Documents/design/design-qa-polaroids-comparison.png`.
+- Viewport: 1135 × 946 CSS px at device scale 1. Source layout reference: 396 × 246 px; implementation capture: 1120 × 933 px. Reference was proportionally enlarged in the combined comparison; no density-dependent measurement was inferred from it.
+- State: homepage `#about`, default desktop state after reveal animation.
+- Full-view comparison: implementation replaces the horizontal carousel with four supplied portrait assets arranged as a centered, overlapping fan of rotated instant-photo cards in the previous gallery region.
+- Focused comparison: the card cluster was compared directly with the instant-film reference; white borders, overlap, alternating rotation, center emphasis, and soft shadow direction are present. No separate typography crop was required because this change did not alter the existing heading or body typography.
+- Fonts and typography: existing About Me hierarchy and copy are unchanged.
+- Spacing and layout rhythm: the cluster occupies a 940 × 322 px region, stays centered below the CTA, and introduces no horizontal overflow at the checked desktop viewport.
+- Colors and visual tokens: supplied image colors and paper whites are preserved; shadows use the page's neutral black token with low opacity.
+- Image quality and asset fidelity: all four files from the supplied `zp` folder are used at native aspect ratio without stretching or generated substitutes.
+- Copy and content: existing About Me text and CTA remain unchanged; carousel labels and drag behavior were removed with the carousel.
+- Primary interaction tested: page navigation to `#about`, reveal state, and hover elevation. Console errors/warnings: none.
+- Comparison history: initial implementation had no actionable P0/P1/P2 mismatch. No corrective QA iteration was required.
+- Follow-up polish: a fifth photo can be added later if another supplied instant-photo asset becomes available.
+
+final result: passed

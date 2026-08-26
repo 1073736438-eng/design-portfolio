@@ -28,7 +28,7 @@ const prepareRevealSystem = () => {
     configureReveal(aboutHeading?.querySelector("h2"), "hero", 0);
     configureReveal(aboutHeading?.querySelector(".about-introduction"), "section", 70);
     configureReveal(aboutHeading?.querySelector(".about-actions"), "secondary", 140);
-    configureReveal(document.querySelector(".about-gallery"), "visual", 190);
+    configureReveal(document.querySelector(".about-polaroids"), "visual", 190);
 
     [
       [".work-projects-heading", "hero", 0],

@@ -2299,6 +2299,18 @@ button.outline-item:not(.is-active):focus-visible {
   cursor: zoom-in;
 }
 
+.kuaishou-gift-module {
+  margin-top: clamp(40px, 5vw, 72px);
+}
+
+.kuaishou-gift-module h2 {
+  margin: 0 0 clamp(20px, 2.5vw, 32px);
+  color: var(--title);
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
 @media (max-width: 560px) {
   .kuaishou-content .kuaishou-image {
     border-radius: 12px;
